@@ -50,3 +50,12 @@ Election Configuration Interface — Admin UI/tool to define elections, add cand
 
 
 This gives your team a clean separation of concerns to divide work across Scrum sprints. The two most critical items to tackle in Sprint 1 would be Authentication (#1/#17) and the core voting flow (#2–#6, #10–#12), leaving Results, Auditing, and Admin features for Sprint 2.
+
+The 6 high-level features:
+Voter Authentication — Voters securely identify themselves before accessing the ballot (login/credentials).
+Ballot Management — Display the correct ballot to each voter, covering all active elections and issues.
+Vote Casting & Review — Voter makes selections, reviews them, edits if needed, and submits their final ballot.
+Duplicate Vote Prevention — Enforce that no voter can vote more than once in the same election.
+Voter Privacy & Audit — Allow voters to confirm their own vote was recorded correctly, while making it impossible for third parties to see how anyone voted (only whether they voted).
+Results & Winner Determination — At the end of voting day, tally all votes and determine the winner of each race and the outcome of each issue.
+
