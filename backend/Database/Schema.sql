@@ -1,5 +1,5 @@
 -- Pacopolis Voting System - Database Schema
--- Run this against LocalDB instance to set up the tables
+-- Run this against the Azure SQL database to set up the tables
 
 -- stores registered voters. passwords get hashed in C# before saving here(not implemented yet)
 CREATE TABLE Voter (

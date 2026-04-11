@@ -49,17 +49,22 @@ Data persistence and external integrations:
 
 ## Setup
 
-**Requirements:** .NET 8 SDK, Node.js 18+, SQL Server (Developer or Express)
+**Requirements:** .NET 8 SDK, Node.js 18+
 
 **Repo layout:**
 - `frontend/` — React app (Vite)
 - `backend/` — C# solution (View, Managers, Engines, ResourceAccess, DataContracts, Tests)
 
-**Set up the database:**
-1. Open SQL Server Object Explorer in Visual Studio
-2. Connect to `(localdb)\MSSQLLocalDB`
-3. Create a new database called `PacopolisVoting`
-4. Open and run `backend/Database/Schema.sql` against it
+**Set up the database connection:**
+1. Install the **mssql** extension in VS Code
+2. Copy the config template:
+   - Mac/Linux: `cp backend/VotingSystem.View/appsettings.Development.json.template backend/VotingSystem.View/appsettings.Development.json`
+   - Windows: `copy backend\VotingSystem.View\appsettings.Development.json.template backend\VotingSystem.View\appsettings.Development.json`
+3. Open `appsettings.Development.json` and replace the `YOUR_*` placeholders with the Azure SQL credentials (get these from the team group chat)
+4. Connect to the Azure SQL server in VS Code (`Ctrl+Alt+D` → Add Connection → use the server/credentials from the connection string)
+5. Run `backend/Database/Schema.sql` against the `PacopolisVoting` database
+
+> **Note:** Never commit `appsettings.Development.json` — it contains secrets and is gitignored.
 
 **Run the backend:**
 ```bash
