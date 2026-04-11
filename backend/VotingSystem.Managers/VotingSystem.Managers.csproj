@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>VotingSystem.Managers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VotingSystem.Engines\VotingSystem.Engines.csproj" />
+    <ProjectReference Include="..\VotingSystem.DataContracts\VotingSystem.DataContracts.csproj" />
+  </ItemGroup>
+
+</Project>
