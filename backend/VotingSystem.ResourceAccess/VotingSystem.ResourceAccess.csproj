@@ -9,4 +9,9 @@
     <ProjectReference Include="..\VotingSystem.DataContracts\VotingSystem.DataContracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.*" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.*" />
+  </ItemGroup>
+
 </Project>
