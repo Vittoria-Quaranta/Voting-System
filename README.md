@@ -55,6 +55,12 @@ Data persistence and external integrations:
 - `frontend/` — React app (Vite)
 - `backend/` — C# solution (View, Managers, Engines, ResourceAccess, DataContracts, Tests)
 
+**Set up the database:**
+1. Open SQL Server Object Explorer in Visual Studio
+2. Connect to `(localdb)\MSSQLLocalDB`
+3. Create a new database called `PacopolisVoting`
+4. Open and run `backend/Database/Schema.sql` against it
+
 **Run the backend:**
 ```bash
 cd backend
