@@ -1,6 +1,9 @@
 # C# / .NET
 bin/
 obj/
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
 TestResults/
 *.user
 *.suo

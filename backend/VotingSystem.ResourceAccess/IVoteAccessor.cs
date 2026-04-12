@@ -1,0 +1,20 @@
+using VotingSystem.DataContracts;
+
+namespace VotingSystem.ResourceAccess;
+
+/// <summary>
+/// Data access for saving and retrieving votes.
+/// </summary>
+public interface IVoteAccessor
+{
+    /// <summary>
+    /// Submit a full ballot. Saves the voter record and all selections in one transaction.
+    /// Returns the confirmation code the voter can use to look up their ballot later.
+    /// </summary>
+    Task<Guid> SubmitBallotAsync(int voterId, int electionId, List<Vote> selections);
+
+    /// <summary>
+    /// Look up submitted votes by confirmation code.
+    /// </summary>
+    Task<IEnumerable<Vote>> GetVotesByConfirmationCodeAsync(Guid confirmationCode);
+}
