@@ -1,0 +1,77 @@
+using Dapper;
+using Microsoft.Data.SqlClient;
+using VotingSystem.DataContracts;
+
+namespace VotingSystem.ResourceAccess;
+
+/// <summary>
+/// Dapper implementation of IVoteAccessor.
+/// SubmitBallotAsync uses a transaction so everything saves or nothing does.
+/// </summary>
+public class VoteAccessor : IVoteAccessor
+{
+    private readonly string _connectionString;
+
+    public VoteAccessor(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
+
+    public async Task<Guid> SubmitBallotAsync(int voterId, int electionId, List<Vote> selections)
+    {
+        var confirmationCode = Guid.NewGuid();
+
+        using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync();
+        using var transaction = connection.BeginTransaction();
+
+        try
+        {
+            // record that this voter participated in this election
+            const string insertRecord =
+                "INSERT INTO VoterRecord (VoterId, ElectionId, ConfirmationCode) " +
+                "VALUES (@VoterId, @ElectionId, @ConfirmationCode)";
+
+            await connection.ExecuteAsync(insertRecord, new
+            {
+                VoterId = voterId,
+                ElectionId = electionId,
+                ConfirmationCode = confirmationCode
+            }, transaction);
+
+            // save each individual race selection
+            const string insertVote =
+                "INSERT INTO Vote (ConfirmationCode, RaceId, CandidateId) " +
+                "VALUES (@ConfirmationCode, @RaceId, @CandidateId)";
+
+            foreach (var selection in selections)
+            {
+                await connection.ExecuteAsync(insertVote, new
+                {
+                    ConfirmationCode = confirmationCode,
+                    RaceId = selection.RaceId,
+                    CandidateId = selection.CandidateId
+                }, transaction);
+            }
+
+            transaction.Commit();
+            return confirmationCode;
+        }
+        catch
+        {
+            transaction.Rollback();
+            throw;
+        }
+    }
+
+    // voter uses their confirmation code to verify their ballot was recorded
+    public async Task<IEnumerable<Vote>> GetVotesByConfirmationCodeAsync(Guid confirmationCode)
+    {
+        const string sql =
+            "SELECT VoteId, ConfirmationCode, RaceId, CandidateId " +
+            "FROM Vote WHERE ConfirmationCode = @ConfirmationCode";
+
+        using var connection = new SqlConnection(_connectionString);
+        return await connection.QueryAsync<Vote>(sql, new { ConfirmationCode = confirmationCode });
+    }
+}
