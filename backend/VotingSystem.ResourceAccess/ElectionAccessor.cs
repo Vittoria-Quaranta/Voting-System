@@ -6,7 +6,7 @@ namespace VotingSystem.ResourceAccess;
 
 /// <summary>
 /// Dapper implementation of IElectionAccessor.
-/// Same connection-per-call pattern as VoterAccessor.
+/// Each method opens its own connection and disposes it after.
 /// </summary>
 public class ElectionAccessor : IElectionAccessor
 {
