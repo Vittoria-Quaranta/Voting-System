@@ -20,6 +20,7 @@ builder.Services.AddSingleton<IAuthEngine, AuthEngine>();
 
 // managers (orchestration)
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<IBallotManager, BallotManager>();
 
 var app = builder.Build();
 
@@ -31,6 +32,13 @@ app.MapPost("/api/login", async (LoginRequest request, IAuthManager authManager)
 {
     var response = await authManager.LoginAsync(request);
     return Results.Ok(response);
+});
+
+// GET /api/ballot - returns the active ballot, 404 if no election is active
+app.MapGet("/api/ballot", async (IBallotManager ballotManager) =>
+{
+    var ballot = await ballotManager.GetActiveBallotAsync();
+    return ballot is null ? Results.NotFound() : Results.Ok(ballot);
 });
 
 app.Run();
