@@ -74,8 +74,4 @@ SOLID stuff:
 - Talk about the frontend plan and Sprint 2
 
 **Notes (fill in during/after):**
-
-- 
-- 
-- 
-- Instructor feedback:
+- Instructor feedback: make sure to hook up frontend but overall we are at a good point 
