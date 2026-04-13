@@ -1,14 +1,14 @@
 # Test Accounts
 
-Database is already seeded. Use these to log in during development.
+Database is already seeded. All test voters share the same password: **husker2026**
 
-| Username | Password | Name |
-|----------|----------|------|
-| tfrazier | not_hashed_yet | Tommie Frazier |
-| ecrouch | not_hashed_yet | Eric Crouch |
-| bberringer | not_hashed_yet | Brook Berringer |
-| jrodgers | not_hashed_yet | Johnny Rodgers |
-| mrozier | not_hashed_yet | Mike Rozier |
+| Username | Name |
+|----------|------|
+| tfrazier | Tommie Frazier |
+| ecrouch | Eric Crouch |
+| bberringer | Brook Berringer |
+| jrodgers | Johnny Rodgers |
+| mrozier | Mike Rozier |
 
 ## What's in the election
 

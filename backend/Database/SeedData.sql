@@ -1,13 +1,14 @@
 -- Seed data for testing
+-- All voters share password: husker2026 (BCrypt hashed)
 
 -- Voters
 INSERT INTO Voter (FirstName, LastName, Username, PasswordHash)
 VALUES
-    ('Tommie', 'Frazier', 'tfrazier', 'not_hashed_yet'),
-    ('Eric', 'Crouch', 'ecrouch', 'not_hashed_yet'),
-    ('Brook', 'Berringer', 'bberringer', 'not_hashed_yet'),
-    ('Johnny', 'Rodgers', 'jrodgers', 'not_hashed_yet'),
-    ('Mike', 'Rozier', 'mrozier', 'not_hashed_yet');
+    ('Tommie', 'Frazier', 'tfrazier', '$2a$11$1oaH10kUk5v9U8NqqCySDu2pY22jx9goAZPCQ6m/Zuat09w.WTDP2'),
+    ('Eric', 'Crouch', 'ecrouch', '$2a$11$1oaH10kUk5v9U8NqqCySDu2pY22jx9goAZPCQ6m/Zuat09w.WTDP2'),
+    ('Brook', 'Berringer', 'bberringer', '$2a$11$1oaH10kUk5v9U8NqqCySDu2pY22jx9goAZPCQ6m/Zuat09w.WTDP2'),
+    ('Johnny', 'Rodgers', 'jrodgers', '$2a$11$1oaH10kUk5v9U8NqqCySDu2pY22jx9goAZPCQ6m/Zuat09w.WTDP2'),
+    ('Mike', 'Rozier', 'mrozier', '$2a$11$1oaH10kUk5v9U8NqqCySDu2pY22jx9goAZPCQ6m/Zuat09w.WTDP2');
 
 -- Election
 INSERT INTO Election (ElectionName, StartDate, EndDate, IsActive)
