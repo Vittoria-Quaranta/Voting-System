@@ -24,6 +24,12 @@ public class AuthManager : IAuthManager
 
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
+        // guard: empty username or password fails immediately, no DB hit needed
+        if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
+        {
+            return new LoginResponse { Success = false, Message = InvalidLoginMessage };
+        }
+
         // step 1: pull the voter from the database
         var voter = await _voterAccessor.GetVoterByUsernameAsync(request.Username);
         if (voter == null)

@@ -83,6 +83,36 @@ public class AuthManagerTests
     }
 
     [TestMethod]
+    public async Task LoginAsync_EmptyUsername_ReturnsFailure()
+    {
+        var fakeAccessor = new FakeVoterAccessor
+        {
+            VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "h" }
+        };
+        var manager = new AuthManager(fakeAccessor, new FakeAuthEngine { VerifyResult = true });
+
+        var response = await manager.LoginAsync(new LoginRequest { Username = "", Password = "password" });
+
+        Assert.IsFalse(response.Success);
+        Assert.AreEqual("Invalid username or password.", response.Message);
+    }
+
+    [TestMethod]
+    public async Task LoginAsync_EmptyPassword_ReturnsFailure()
+    {
+        var fakeAccessor = new FakeVoterAccessor
+        {
+            VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "h" }
+        };
+        var manager = new AuthManager(fakeAccessor, new FakeAuthEngine { VerifyResult = true });
+
+        var response = await manager.LoginAsync(new LoginRequest { Username = "tfrazier", Password = "" });
+
+        Assert.IsFalse(response.Success);
+        Assert.AreEqual("Invalid username or password.", response.Message);
+    }
+
+    [TestMethod]
     public async Task LoginAsync_BothFailureCases_UseSameMessage()
     {
         // security check: don't leak whether the username or password was wrong
