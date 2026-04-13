@@ -29,7 +29,7 @@ Get the core voting flow working. Log in, see a ballot, submit it, get a confirm
 - Test account list
 
 ### Frontend (not done)
-- Vite + React scaffolded
+- React scaffolded
 - Draft PRs open for roughing out pages and wiring them to the API
 - Nothing merged yet
 
@@ -48,9 +48,9 @@ We're using iDesign. Layers:
 - **ResourceAccess** = all the SQL stuff
 - **DataContracts** = DTOs and entities everyone shares
 
-Dependencies only go one way: View → Managers → Engines/Accessors → DataContracts. Everything behind an interface so tests can mock.
+Dependencies only go one way: View -> Managers -> Engines/Accessors -> DataContracts. Everything behind an interface so tests can mock.
 
-See `docs/idesign-architecture.mmd` for the diagram.
+Rough architect drawing needs to be made digital.
 
 SOLID stuff:
 - One job per class
@@ -59,18 +59,23 @@ SOLID stuff:
 
 ## Screenshots
 
-- [ ] GitHub project board
-- [ ] VS Code file tree showing the solution
-- [ ] Azure SQL tables with some data
-- [ ] `dotnet test` output, all 31 passing
+- [x] GitHub project board - [view](assets/github-projects-board.png)
+- [x] VS Code file tree showing the solution - [view](assets/solution-explorer.png)
+- [x] Azure SQL tables with some data - [view](assets/sql-tables.png)
+- [x] `dotnet test` output, all 31 passing - [view](assets/dotnet-tests.png)
 - [ ] iDesign architecture diagram
 
 ## Review meeting notes
 
-(Fill in during/after the meeting)
+**Agenda (what to cover):**
+- Walk through what got built this sprint using the screenshots above
+- Walk through the iDesign layers
+- Show tests passing (screenshot above)
+- Talk about the frontend plan and Sprint 2
 
-- Demo'd backend end to end with curl
-- Walked through iDesign layers
-- Showed tests passing
-- Talked about frontend plan
-- (instructor feedback here)
+**Notes (fill in during/after):**
+
+- 
+- 
+- 
+- Instructor feedback:
