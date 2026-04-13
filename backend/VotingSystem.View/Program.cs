@@ -18,6 +18,7 @@ builder.Services.AddScoped<IVoteAccessor>(_ => new VoteAccessor(connectionString
 // engines (pure logic, no state, safe as singleton)
 builder.Services.AddSingleton<IAuthEngine, AuthEngine>();
 builder.Services.AddSingleton<IBallotValidationEngine, BallotValidationEngine>();
+builder.Services.AddSingleton<IDuplicateVoteEngine, DuplicateVoteEngine>();
 
 // managers (orchestration)
 builder.Services.AddScoped<IAuthManager, AuthManager>();
