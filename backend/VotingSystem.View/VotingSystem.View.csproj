@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VotingSystem.Managers\VotingSystem.Managers.csproj" />
+    <ProjectReference Include="..\VotingSystem.Engines\VotingSystem.Engines.csproj" />
     <ProjectReference Include="..\VotingSystem.ResourceAccess\VotingSystem.ResourceAccess.csproj" />
     <ProjectReference Include="..\VotingSystem.DataContracts\VotingSystem.DataContracts.csproj" />
   </ItemGroup>
