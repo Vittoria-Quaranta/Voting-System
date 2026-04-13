@@ -28,3 +28,4 @@
 
 ## Notes
 - Longest part from here is connecting frontend to database (something about UI connectivity)
+- Running backend takes time
