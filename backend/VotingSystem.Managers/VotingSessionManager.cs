@@ -12,17 +12,20 @@ public class VotingSessionManager : IVotingSessionManager
 {
     private readonly IBallotManager _ballotManager;
     private readonly IVoterAccessor _voterAccessor;
+    private readonly IDuplicateVoteEngine _duplicateVoteEngine;
     private readonly IBallotValidationEngine _validationEngine;
     private readonly IVoteAccessor _voteAccessor;
 
     public VotingSessionManager(
         IBallotManager ballotManager,
         IVoterAccessor voterAccessor,
+        IDuplicateVoteEngine duplicateVoteEngine,
         IBallotValidationEngine validationEngine,
         IVoteAccessor voteAccessor)
     {
         _ballotManager = ballotManager;
         _voterAccessor = voterAccessor;
+        _duplicateVoteEngine = duplicateVoteEngine;
         _validationEngine = validationEngine;
         _voteAccessor = voteAccessor;
     }
@@ -36,11 +39,12 @@ public class VotingSessionManager : IVotingSessionManager
             return Fail("No active election to submit to.");
         }
 
-        // step 2: prevent duplicate voting
+        // step 2: duplicate vote check (accessor fetches status, engine decides)
         var alreadyVoted = await _voterAccessor.HasVotedInElectionAsync(request.VoterId, request.ElectionId);
-        if (alreadyVoted)
+        var duplicateCheck = _duplicateVoteEngine.Check(alreadyVoted);
+        if (!duplicateCheck.IsValid)
         {
-            return Fail("You have already voted in this election.");
+            return Fail(duplicateCheck.ErrorMessage);
         }
 
         // step 3: validate the selections against the ballot

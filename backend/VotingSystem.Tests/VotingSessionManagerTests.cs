@@ -28,6 +28,12 @@ public class VotingSessionManagerTests
         public ValidationResult Validate(BallotDto ballot, List<SelectionDto> selections) => ResultToReturn;
     }
 
+    private class FakeDuplicateVoteEngine : IDuplicateVoteEngine
+    {
+        public ValidationResult ResultToReturn { get; set; } = ValidationResult.Valid();
+        public ValidationResult Check(bool hasAlreadyVoted) => ResultToReturn;
+    }
+
     private class FakeVoteAccessor : IVoteAccessor
     {
         public Guid CodeToReturn { get; set; } = Guid.NewGuid();
@@ -60,6 +66,7 @@ public class VotingSessionManagerTests
         var manager = new VotingSessionManager(
             new FakeBallotManager { BallotToReturn = MakeBallot() },
             new FakeVoterAccessor { HasVoted = false },
+            new FakeDuplicateVoteEngine { ResultToReturn = ValidationResult.Valid() },
             new FakeValidationEngine { ResultToReturn = ValidationResult.Valid() },
             new FakeVoteAccessor { CodeToReturn = expectedCode }
         );
@@ -76,6 +83,7 @@ public class VotingSessionManagerTests
         var manager = new VotingSessionManager(
             new FakeBallotManager { BallotToReturn = null },
             new FakeVoterAccessor(),
+            new FakeDuplicateVoteEngine(),
             new FakeValidationEngine(),
             new FakeVoteAccessor()
         );
@@ -92,6 +100,7 @@ public class VotingSessionManagerTests
         var manager = new VotingSessionManager(
             new FakeBallotManager { BallotToReturn = MakeBallot() },
             new FakeVoterAccessor { HasVoted = true },
+            new FakeDuplicateVoteEngine { ResultToReturn = ValidationResult.Invalid("You have already voted in this election.") },
             new FakeValidationEngine(),
             new FakeVoteAccessor()
         );
@@ -108,6 +117,7 @@ public class VotingSessionManagerTests
         var manager = new VotingSessionManager(
             new FakeBallotManager { BallotToReturn = MakeBallot() },
             new FakeVoterAccessor { HasVoted = false },
+            new FakeDuplicateVoteEngine(),
             new FakeValidationEngine { ResultToReturn = ValidationResult.Invalid("Missing selection.") },
             new FakeVoteAccessor()
         );
