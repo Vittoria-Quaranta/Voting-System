@@ -22,7 +22,7 @@ export default function Ballot() {
       {ballot.races && ballot.races.length === 0 && <p>No active races found.</p>}
       <ul>
         {(ballot.races || []).map((r) => (
-          <li key={r.id}>{r.title}</li>
+          <li key={r.raceId}>{r.raceName}</li>
         ))}
       </ul>
     </div>
