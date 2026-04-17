@@ -21,7 +21,7 @@ export default function Ballot() {
 
   return (
     <div>
-      <h2>Ballot</h2>
+      <h2>{ballot.electionName || 'Ballot'}</h2>
       {ballot.races && ballot.races.length === 0 && <p>No active races found.</p>}
       <ul>
         {(ballot.races || []).map((r) => (
