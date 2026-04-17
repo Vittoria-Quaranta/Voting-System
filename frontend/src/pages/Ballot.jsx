@@ -8,8 +8,11 @@ export default function Ballot() {
     let mounted = true;
     fetchBallot().then(data => {
       if (mounted) setBallot(data);
-    }).catch(() => {
-      if (mounted) setBallot({ races: [] });
+    }).catch((err) => {
+      if (mounted) {
+        setError(err.message);
+        setBallot({ races: [] });
+      }
     });
     return () => { mounted = false; };
   }, []);
