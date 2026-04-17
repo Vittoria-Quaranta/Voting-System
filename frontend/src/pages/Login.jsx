@@ -28,15 +28,15 @@ export default function Login() {
                     <br />
                     <input
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-
-                <button type="submit" disabled={!username || !password}>
-                    Login
-                </button>
-            </form>
+        <div>
+          <label>Username</label>
+          <br />
+          <input value={username} onChange={(e) => setUsername(e.target.value)} />
+        </div>
+        <div>
+          <label>Password</label>
+          <br />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
     );
 }
