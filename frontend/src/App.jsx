@@ -18,9 +18,6 @@ function App() {
           <Link to="/ballot">Ballot</Link>
           <Link to="/review">Review</Link>
           <Link to="/submit">Submit</Link>
-          <Link to="/lookup">My Vote</Link>
-          <Link to="/participation">Participation</Link>
-          <Link to="/admin/results">Results</Link>
         </nav>
       </header>
 
