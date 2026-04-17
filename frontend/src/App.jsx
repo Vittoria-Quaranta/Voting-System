@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Login from './pages/Login';
 import Ballot from './pages/Ballot';
 import Review from './pages/Review';
@@ -9,22 +9,46 @@ import ParticipationCheck from './pages/ParticipationCheck';
 import AdminResults from './pages/AdminResults';
 
 function App() {
+  // Common style for nav items
+  const navLinkStyle = ({ isActive }) => ({
+    textDecoration: 'none',
+    color: isActive ? '#000' : '#666',
+    fontWeight: isActive ? '600' : '400',
+    fontSize: '14px',
+    padding: '8px 12px',
+    borderRadius: '6px',
+    transition: 'background 0.2s',
+    backgroundColor: isActive ? '#f0f0f0' : 'transparent',
+  });
+
   return (
     <BrowserRouter>
-      <header style={{ padding: 12, borderBottom: '1px solid #ddd' }}>
-        <nav style={{ display: 'flex', gap: 12 }}>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/ballot">Ballot</Link>
-          <Link to="/review">Review</Link>
-          <Link to="/submit">Submit</Link>
+      <header style={{
+        padding: '16px 24px',
+        borderBottom: '1px solid #eaeaea',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <div style={{ fontWeight: 'bold', fontSize: '18px' }}>VoterPortal</div>
+        <nav style={{ display: 'flex', gap: '8px' }}>
+          {/* Combined Home/Login into one destination */}
+          <NavLink style={navLinkStyle} to="/login">Login / Sign Up</NavLink>
+          <NavLink style={navLinkStyle} to="/ballot">Ballot</NavLink>
+          <NavLink style={navLinkStyle} to="/review">Review</NavLink>
+          <NavLink style={navLinkStyle} to="/submit">Submit</NavLink>
+          <NavLink style={navLinkStyle} to="/lookup">My Vote</NavLink>
+          <NavLink style={navLinkStyle} to="/participation">Participation</NavLink>
+          <NavLink style={navLinkStyle} to="/admin/results">Results</NavLink>
         </nav>
       </header>
 
-      <main style={{ padding: 12 }}>
+      <main style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
         <Routes>
-          <Route path="/" element={<div><h1>Pacopolis Voting System</h1><p>Welcome to the voting frontend.</p></div>} />
+          {/* Both root and login now point to the same component */}
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
+
           <Route path="/ballot" element={<Ballot />} />
           <Route path="/review" element={<Review />} />
           <Route path="/submit" element={<Submit />} />
