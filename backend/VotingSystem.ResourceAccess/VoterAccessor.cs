@@ -39,4 +39,23 @@ public class VoterAccessor : IVoterAccessor
         var count = await connection.ExecuteScalarAsync<int>(sql, new { VoterId = voterId, ElectionId = electionId });
         return count > 0;
     }
+
+    // insert a new voter row and return the generated VoterId. RegistrationDate uses the DB default.
+    public async Task<int> CreateVoterAsync(Voter voter)
+    {
+        const string sql =
+            "INSERT INTO Voter (FirstName, LastName, Username, PasswordHash, DateOfBirth) " +
+            "VALUES (@FirstName, @LastName, @Username, @PasswordHash, @DateOfBirth); " +
+            "SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+        using var connection = new SqlConnection(_connectionString);
+        return await connection.ExecuteScalarAsync<int>(sql, new
+        {
+            voter.FirstName,
+            voter.LastName,
+            voter.Username,
+            voter.PasswordHash,
+            voter.DateOfBirth
+        });
+    }
 }
