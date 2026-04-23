@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: dotnet build VotingSystem.sln --no-restore --configuration Release
 
-      - name: Test with coverage
+      - name: Test with coverage  # uses coverlet.collector from test .csproj
         run: >
           dotnet test VotingSystem.sln
           --no-build
@@ -36,6 +36,30 @@ jobs:
           --logger "trx;LogFileName=results.trx"
           --collect:"XPlat Code Coverage"
           -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+        # https://www.marktinderholt.com/github/2024/12/19/dotnet-unit-test-github-actions.html
+
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Generate coverage report
+        run: >
+          reportgenerator
+          -reports:"VotingSystem.Tests/TestResults/*/coverage.cobertura.xml"
+          -targetdir:"CoverageReport"
+          -reporttypes:"Html;TextSummary"
+          -assemblyfilters:"+VotingSystem.Managers;+VotingSystem.Engines"
+
+      - name: Print coverage summary
+        run: cat CoverageReport/Summary.txt
+
+      - name: Check 80% threshold on managers/engines
+        run: |
+          LINE_RATE=$(grep -oP 'Line coverage: \K[0-9.]+' CoverageReport/Summary.txt || echo "0")
+          echo "Coverage: ${LINE_RATE}%"
+          if [ "$(echo "$LINE_RATE < 80" | bc)" -eq 1 ]; then
+            echo "::error::Coverage ${LINE_RATE}% is below 80% threshold"
+            exit 1
+          fi
 
       - name: Upload test results
         if: always()
@@ -43,6 +67,13 @@ jobs:
         with:
           name: test-results
           path: backend/VotingSystem.Tests/TestResults/
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: backend/CoverageReport/
 
   frontend:
     name: Frontend Build
@@ -66,3 +97,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+# https://docs.github.com/en/actions/tutorials/build-and-test-code/net
+# https://github.com/danielpalme/ReportGenerator-GitHub-Action
