@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useVoting } from '../context/VotingContext';
 
+const isDev = import.meta.env.DEV;
+
 export default function VotingHeader() {
   const { currentVoter, logout } = useVoting();
 
@@ -14,6 +16,20 @@ export default function VotingHeader() {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link
+            to="/results"
+            className="text-sm px-3 py-1 rounded border border-white/30 hover:bg-white/10"
+          >
+            Results
+          </Link>
+          {isDev && (
+            <Link
+              to="/dev"
+              className="text-sm px-3 py-1 rounded bg-amber-500 text-black font-medium hover:bg-amber-400"
+            >
+              Dev
+            </Link>
+          )}
           {currentVoter && (
             <>
               <span className="text-sm opacity-80">

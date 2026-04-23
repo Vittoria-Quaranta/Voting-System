@@ -21,6 +21,10 @@ export default function Ballot() {
       navigate('/');
       return;
     }
+    if (hasVoted) {
+      navigate('/confirmation');
+      return;
+    }
 
     let mounted = true;
     fetchBallot()
@@ -38,22 +42,9 @@ export default function Ballot() {
         }
       });
     return () => { mounted = false; };
-  }, [currentVoter, navigate, setElectionId]);
+  }, [currentVoter, hasVoted, navigate, setElectionId]);
 
-  if (!currentVoter) return null;
-
-  if (hasVoted) {
-    return (
-      <div className="max-w-2xl mx-auto">
-        <Alert variant="info">
-          You have already voted in this election. Each voter may only cast one ballot.
-        </Alert>
-        <div className="mt-4 text-center">
-          <Button onClick={() => navigate('/confirmation')}>View Confirmation</Button>
-        </div>
-      </div>
-    );
-  }
+  if (!currentVoter || hasVoted) return null;
 
   if (loading) return <p className="text-center text-[var(--color-muted)]">Loading ballot...</p>;
   if (error) return <Alert variant="error">{error}</Alert>;

@@ -58,6 +58,12 @@ export default function Review() {
       markVoted(result.confirmationCode);
       navigate('/confirmation');
     } catch (err) {
+      // if backend says already voted, mark it and redirect
+      if (err.message.toLowerCase().includes('already voted')) {
+        markVoted(null);
+        navigate('/confirmation');
+        return;
+      }
       setError(err.message);
       setSubmitting(false);
     }
