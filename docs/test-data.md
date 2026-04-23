@@ -2,6 +2,8 @@
 
 Database is already seeded. All test voters share the same password: **husker2026**
 
+New voters can also be created through the `/register` page; the seeded accounts below are for quick manual testing.
+
 | Username | Name |
 |----------|------|
 | tfrazier | Tommie Frazier |
