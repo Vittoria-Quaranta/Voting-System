@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { VotingProvider } from './context/VotingContext';
+import VotingHeader from './components/VotingHeader';
 import Login from './pages/Login';
 import Ballot from './pages/Ballot';
 import Review from './pages/Review';
@@ -11,28 +12,22 @@ import AdminResults from './pages/AdminResults';
 function App() {
   return (
     <BrowserRouter>
-      <header style={{ padding: 12, borderBottom: '1px solid #ddd' }}>
-        <nav style={{ display: 'flex', gap: 12 }}>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/ballot">Ballot</Link>
-          <Link to="/review">Review</Link>
-          <Link to="/submit">Submit</Link>
-        </nav>
-      </header>
+      <VotingProvider>
+        <VotingHeader />
 
-      <main style={{ padding: 12 }}>
-        <Routes>
-          <Route path="/" element={<div><h1>Pacopolis Voting System</h1><p>Welcome to the voting frontend.</p></div>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/ballot" element={<Ballot />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/submit" element={<Submit />} />
-          <Route path="/lookup" element={<VoteLookup />} />
-          <Route path="/participation" element={<ParticipationCheck />} />
-          <Route path="/admin/results" element={<AdminResults />} />
-        </Routes>
-      </main>
+        <main className="max-w-5xl mx-auto px-4 py-8">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/ballot" element={<Ballot />} />
+            <Route path="/review" element={<Review />} />
+            <Route path="/submit" element={<Submit />} />
+            <Route path="/lookup" element={<VoteLookup />} />
+            <Route path="/participation" element={<ParticipationCheck />} />
+            <Route path="/admin/results" element={<AdminResults />} />
+          </Routes>
+        </main>
+      </VotingProvider>
     </BrowserRouter>
   );
 }
