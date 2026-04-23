@@ -74,4 +74,18 @@ public class VoteAccessor : IVoteAccessor
         using var connection = new SqlConnection(_connectionString);
         return await connection.QueryAsync<Vote>(sql, new { ConfirmationCode = confirmationCode });
     }
+
+    // count votes per candidate for all races in an election
+    public async Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId)
+    {
+        const string sql =
+            "SELECT v.RaceId, v.CandidateId, COUNT(*) AS [Count] " +
+            "FROM Vote v " +
+            "INNER JOIN Race r ON v.RaceId = r.RaceId " +
+            "WHERE r.ElectionId = @ElectionId " +
+            "GROUP BY v.RaceId, v.CandidateId";
+
+        using var connection = new SqlConnection(_connectionString);
+        return await connection.QueryAsync<VoteCount>(sql, new { ElectionId = electionId });
+    }
 }

@@ -40,6 +40,8 @@ public class VotingSessionManagerTests
         public Task<Guid> SubmitBallotAsync(int voterId, int electionId, List<Vote> selections) => Task.FromResult(CodeToReturn);
         public Task<IEnumerable<Vote>> GetVotesByConfirmationCodeAsync(Guid confirmationCode) =>
             Task.FromResult<IEnumerable<Vote>>(new List<Vote>());
+        public Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId) =>
+            Task.FromResult<IEnumerable<VoteCount>>(new List<VoteCount>());
     }
 
     private static BallotDto MakeBallot() => new()
