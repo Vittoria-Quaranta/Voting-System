@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { VotingProvider } from './context/VotingContext';
 import VotingHeader from './components/VotingHeader';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Ballot from './pages/Ballot';
 import Review from './pages/Review';
 import Confirmation from './pages/Confirmation';
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/ballot" element={<Ballot />} />
             <Route path="/review" element={<Review />} />
             <Route path="/confirmation" element={<Confirmation />} />
