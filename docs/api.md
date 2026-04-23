@@ -23,7 +23,8 @@ Get back (success):
   "message": "Login successful.",
   "voterId": 1,
   "firstName": "Tommie",
-  "lastName": "Frazier"
+  "lastName": "Frazier",
+  "hasVoted": false
 }
 ```
 
@@ -119,11 +120,60 @@ Possible error messages:
 - Selection for unknown race: {id}
 - Selection for unknown choice in race: {name}
 
+## Get election results
+
+**GET /api/results**
+
+No body needed. Returns vote counts and winners for the active election.
+
+```json
+{
+  "electionId": 1,
+  "electionName": "2026 Pacopolis General Election",
+  "races": [
+    {
+      "raceId": 1,
+      "raceName": "Mayor",
+      "raceType": "Candidate",
+      "totalVotes": 175,
+      "candidates": [
+        {
+          "candidateId": 1,
+          "candidateName": "Lil Red",
+          "party": "Spirit Party",
+          "votes": 100,
+          "percentage": 57.1,
+          "isWinner": true
+        },
+        {
+          "candidateId": 2,
+          "candidateName": "Herbie Husker",
+          "party": "Tradition Party",
+          "votes": 75,
+          "percentage": 42.9,
+          "isWinner": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+- Candidates sorted by votes descending
+- Ties mark both as winner
+- Returns 404 if no active election
+
+## Dev-only endpoints
+
+These only exist when running in Development mode.
+
+**POST /api/dev/reset-votes** - clears all votes and voter records from the database.
+
 ## Running the backend
 
 ```bash
 cd backend
-dotnet run --project VotingSystem.View
+ASPNETCORE_ENVIRONMENT=Development dotnet run --project VotingSystem.View
 ```
 
-It'll start on `http://localhost:5000`.
+It'll start on `http://localhost:5000`. The `Development` flag is required to load the real database connection string.
