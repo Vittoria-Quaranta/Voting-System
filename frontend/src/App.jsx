@@ -4,7 +4,7 @@ import VotingHeader from './components/VotingHeader';
 import Login from './pages/Login';
 import Ballot from './pages/Ballot';
 import Review from './pages/Review';
-import Submit from './pages/Submit';
+import Confirmation from './pages/Confirmation';
 import VoteLookup from './pages/VoteLookup';
 import ParticipationCheck from './pages/ParticipationCheck';
 import AdminResults from './pages/AdminResults';
@@ -21,7 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/ballot" element={<Ballot />} />
             <Route path="/review" element={<Review />} />
-            <Route path="/submit" element={<Submit />} />
+            <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/lookup" element={<VoteLookup />} />
             <Route path="/participation" element={<ParticipationCheck />} />
             <Route path="/admin/results" element={<AdminResults />} />

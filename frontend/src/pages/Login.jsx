@@ -1,31 +1,96 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useVoting } from '../context/VotingContext';
+import { authenticate } from '../api/client';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
+import { Input, Label } from '../components/ui/Input';
+import { Alert } from '../components/ui/Alert';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { setCurrentVoter, hasVoted } = useVoting();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // TODO: call backend authentication
-    alert(`Login attempted for ${username}`);
+    setError(null);
+    setLoading(true);
+
+    try {
+      const data = await authenticate(username, password);
+      setCurrentVoter({
+        voterId: data.voterId,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
+      navigate('/ballot');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div>
-      <h2>Voter Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
-          <br />
-          <input value={username} onChange={(e) => setUsername(e.target.value)} />
-        </div>
-        <div>
-          <label>Password</label>
-          <br />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <button type="submit" disabled={!username || !password}>Login</button>
-      </form>
+    <div className="max-w-md mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold mb-2">Voter Login</h2>
+        <p className="text-[var(--color-muted)]">
+          Enter your credentials to access the ballot
+        </p>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Verify Your Identity</CardTitle>
+          <CardDescription>
+            Enter your username and password as provided by the elections office.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <Alert variant="error">{error}</Alert>
+            )}
+
+            <div>
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="e.g., tfrazier"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full"
+              size="lg"
+              disabled={!username || !password || loading}
+            >
+              {loading ? 'Logging in...' : 'Access Ballot'}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }
