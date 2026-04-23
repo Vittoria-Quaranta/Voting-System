@@ -41,6 +41,55 @@ Get back (bad login):
 
 The error message is the same for wrong username, wrong password, or empty input on purpose (so nobody can tell which field was wrong).
 
+## Register
+
+**POST /api/register**
+
+Creates a new voter account. Password is hashed server-side (BCrypt) before storage. Always returns 200; check `success` in the body.
+
+Send:
+```json
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "username": "testuser",
+  "password": "husker2026",
+  "dateOfBirth": "2000-01-01"
+}
+```
+
+`dateOfBirth` can be `null` or omitted.
+
+Get back (success):
+```json
+{
+  "success": true,
+  "message": "Registration successful.",
+  "voterId": 42,
+  "firstName": "Test",
+  "lastName": "User"
+}
+```
+
+Get back (failure):
+```json
+{
+  "success": false,
+  "message": "Username already taken.",
+  "voterId": null,
+  "firstName": null,
+  "lastName": null
+}
+```
+
+Possible error messages:
+- First name is required.
+- Last name is required.
+- Username is required.
+- Password is required.
+- Password must be at least 8 characters.
+- Username already taken.
+
 ## Get the ballot
 
 **GET /api/ballot**

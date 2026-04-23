@@ -16,6 +16,7 @@ public class ParticipationManagerTests
 
         public Task<Voter?> GetVoterByUsernameAsync(string username) => Task.FromResult(VoterToReturn);
         public Task<bool> HasVotedInElectionAsync(int voterId, int electionId) => Task.FromResult(HasVotedResult);
+        public Task<int> CreateVoterAsync(Voter voter) => Task.FromResult(0);
     }
 
     // fake election accessor: only GetActiveElectionAsync is exercised here, others stub empty

@@ -29,6 +29,7 @@ builder.Services.AddScoped<IVotingSessionManager, VotingSessionManager>();
 builder.Services.AddScoped<IResultsManager, ResultsManager>();
 builder.Services.AddScoped<IVoteLookupManager, VoteLookupManager>();
 builder.Services.AddScoped<IParticipationManager, ParticipationManager>();
+builder.Services.AddScoped<IRegistrationManager, RegistrationManager>();
 
 var app = builder.Build();
 
@@ -39,6 +40,14 @@ app.MapGet("/", () => "Pacopolis Voting System API");
 app.MapPost("/api/login", async (LoginRequest request, IAuthManager authManager) =>
 {
     var response = await authManager.LoginAsync(request);
+    return Results.Ok(response);
+});
+
+// POST /api/register - takes RegisterRequest, returns RegisterResponse
+// always returns 200, success/failure in the response body (same pattern as login)
+app.MapPost("/api/register", async (RegisterRequest request, IRegistrationManager registrationManager) =>
+{
+    var response = await registrationManager.RegisterAsync(request);
     return Results.Ok(response);
 });
 

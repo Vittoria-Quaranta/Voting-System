@@ -33,6 +33,21 @@ export async function authenticate(username, password) {
   return data;
 }
 
+// Register a new voter. POST /api/register. Backend always returns 200; check body.success.
+export async function registerVoter(payload) {
+  const res = await fetch(`${API_BASE}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await parseJson(res);
+  if (!data.success) {
+    throw new Error(data.message || 'Registration failed');
+  }
+  return data;
+}
+
 // Fetch election results. GET /api/results, 404 if no election.
 export async function fetchResults() {
   const res = await fetch(`${API_BASE}/api/results`);

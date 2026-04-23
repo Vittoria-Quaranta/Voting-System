@@ -17,6 +17,8 @@ public class AuthManagerTests
         public Task<Voter?> GetVoterByUsernameAsync(string username) => Task.FromResult(VoterToReturn);
 
         public Task<bool> HasVotedInElectionAsync(int voterId, int electionId) => Task.FromResult(false);
+
+        public Task<int> CreateVoterAsync(Voter voter) => Task.FromResult(0);
     }
 
     // fake election accessor, returns null (no active election) by default

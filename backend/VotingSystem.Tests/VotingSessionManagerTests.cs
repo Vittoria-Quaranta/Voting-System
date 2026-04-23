@@ -20,6 +20,7 @@ public class VotingSessionManagerTests
         public bool HasVoted { get; set; }
         public Task<Voter?> GetVoterByUsernameAsync(string username) => Task.FromResult<Voter?>(null);
         public Task<bool> HasVotedInElectionAsync(int voterId, int electionId) => Task.FromResult(HasVoted);
+        public Task<int> CreateVoterAsync(Voter voter) => Task.FromResult(0);
     }
 
     private class FakeValidationEngine : IBallotValidationEngine

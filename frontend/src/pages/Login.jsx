@@ -126,6 +126,13 @@ export default function Login() {
               {loading ? 'Logging in...' : 'Access Ballot'}
             </Button>
           </form>
+
+          <p className="text-sm text-center text-[var(--color-muted)] mt-4">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-[var(--color-primary)] font-medium hover:underline">
+              Register
+            </Link>
+          </p>
         </CardContent>
       </Card>
 
