@@ -66,23 +66,45 @@ Data persistence and external integrations:
 
 > **Note:** Never commit `appsettings.Development.json` — it contains secrets and is gitignored.
 
-**Run the backend:**
+**Run the backend (development):**
 ```bash
 cd backend
 dotnet restore
 dotnet build
-dotnet run --project VotingSystem.View
+ASPNETCORE_ENVIRONMENT=Development dotnet run --project VotingSystem.View
 ```
+> The `ASPNETCORE_ENVIRONMENT=Development` flag is required so the backend reads `appsettings.Development.json` with the real database connection string. Without it, the API will return errors on every request.
 
-**Run the frontend:**
+**Run the frontend (development):**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+Frontend runs on `http://localhost:3000`, proxies `/api` requests to the backend on `http://localhost:5000`.
+
+In dev mode, a **Dev** button appears in the header with tools for testing: reset votes, quick login with test accounts, and page navigation.
+
+**Run the frontend (production preview):**
+```bash
+cd frontend
+npm run build
+npx vite preview --port 4000
+```
+Production build on `http://localhost:4000`. Dev tools are stripped out.
 
 **Run tests:**
 ```bash
 cd backend
 dotnet test
 ```
+
+**Test accounts:** All share password `husker2026`
+
+| Username | Name |
+|----------|------|
+| tfrazier | Tommie Frazier |
+| ecrouch | Eric Crouch |
+| bberringer | Brook Berringer |
+| jrodgers | Johnny Rodgers |
+| mrozier | Mike Rozier |
