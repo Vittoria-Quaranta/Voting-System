@@ -54,3 +54,31 @@ export async function submitBallot(payload) {
   }
   return data;
 }
+
+// Look up a recorded ballot by confirmation code. GET /api/vote-lookup/{code}.
+// 404 means the code was not found.
+export async function lookupVote(confirmationCode) {
+  const code = encodeURIComponent(confirmationCode.trim());
+  const res = await fetch(`${API_BASE}/api/vote-lookup/${code}`);
+  if (res.status === 404) {
+    throw new Error('Confirmation code not found. Check that you entered it exactly.');
+  }
+  if (!res.ok) {
+    throw new Error('Lookup failed, please try again.');
+  }
+  return parseJson(res);
+}
+
+// Third-party participation check. GET /api/participation?username=...
+// Returns { voted: bool }. Unknown usernames are reported as voted=false.
+export async function checkParticipation(username) {
+  const q = encodeURIComponent(username.trim());
+  const res = await fetch(`${API_BASE}/api/participation?username=${q}`);
+  if (res.status === 400) {
+    throw new Error('Please enter a username.');
+  }
+  if (!res.ok) {
+    throw new Error('Participation check failed, please try again.');
+  }
+  return parseJson(res);
+}

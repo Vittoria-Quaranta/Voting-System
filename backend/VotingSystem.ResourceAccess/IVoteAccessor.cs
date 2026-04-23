@@ -19,6 +19,13 @@ public interface IVoteAccessor
     Task<IEnumerable<Vote>> GetVotesByConfirmationCodeAsync(Guid confirmationCode);
 
     /// <summary>
+    /// Look up the VoterRecord row for a confirmation code.
+    /// Used by the lookup flow to resolve which election the code belongs to.
+    /// Returns null if the code does not exist.
+    /// </summary>
+    Task<VoterRecord?> GetVoterRecordByConfirmationCodeAsync(Guid confirmationCode);
+
+    /// <summary>
     /// Get vote counts grouped by race and candidate for an election.
     /// </summary>
     Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId);

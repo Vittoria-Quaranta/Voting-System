@@ -42,6 +42,8 @@ public class VotingSessionManagerTests
             Task.FromResult<IEnumerable<Vote>>(new List<Vote>());
         public Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId) =>
             Task.FromResult<IEnumerable<VoteCount>>(new List<VoteCount>());
+        public Task<VoterRecord?> GetVoterRecordByConfirmationCodeAsync(Guid confirmationCode) =>
+            Task.FromResult<VoterRecord?>(null);
     }
 
     private static BallotDto MakeBallot() => new()
