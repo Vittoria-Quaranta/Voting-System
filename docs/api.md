@@ -119,6 +119,57 @@ Possible error messages:
 - Selection for unknown race: {id}
 - Selection for unknown choice in race: {name}
 
+## Look up a recorded vote
+
+**GET /api/vote-lookup/{confirmationCode}**
+
+The voter enters the confirmation code they saved after submitting. Returns the selections the ballot recorded so the voter can verify nothing was changed.
+
+Response (200):
+```json
+{
+  "electionId": 1,
+  "electionName": "2026 Pacopolis General Election",
+  "selections": [
+    {
+      "raceId": 1,
+      "raceName": "Mayor",
+      "raceType": "Candidate",
+      "candidateId": 1,
+      "candidateName": "Lil Red",
+      "party": "Spirit Party"
+    },
+    {
+      "raceId": 2,
+      "raceName": "Proposition A",
+      "raceType": "YesNo",
+      "candidateId": 5,
+      "candidateName": "Yes",
+      "party": null
+    }
+  ]
+}
+```
+
+Returns 404 if the confirmation code is not found. The code itself is the only authorization, so anyone holding it can read the ballot, that is acceptable for the demo because the code is only ever shown to the voter.
+
+## Check voter participation
+
+**GET /api/participation?username={username}**
+
+Third parties can check whether a voter has participated in the active election. Never reveals choices, only yes or no.
+
+Response (200):
+```json
+{ "voted": true }
+```
+
+```json
+{ "voted": false }
+```
+
+Unknown usernames return `{"voted": false}` (same shape as "has not voted") so callers cannot enumerate which usernames exist. Returns 400 if the `username` query parameter is missing or empty.
+
 ## Running the backend
 
 ```bash
