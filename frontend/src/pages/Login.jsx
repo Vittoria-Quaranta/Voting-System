@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useVoting } from '../context/VotingContext';
 import { authenticate } from '../api/client';
@@ -9,7 +9,14 @@ import { Alert } from '../components/ui/Alert';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setCurrentVoter, hasVoted } = useVoting();
+  const { currentVoter, setCurrentVoter, hasVoted, markVoted } = useVoting();
+
+  // if already logged in, skip to ballot or confirmation
+  useEffect(() => {
+    if (currentVoter) {
+      navigate(hasVoted ? '/confirmation' : '/ballot');
+    }
+  }, [currentVoter, hasVoted, navigate]);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +35,12 @@ export default function Login() {
         firstName: data.firstName,
         lastName: data.lastName,
       });
-      navigate('/ballot');
+      if (data.hasVoted) {
+        markVoted(null);
+        navigate('/confirmation');
+      } else {
+        navigate('/ballot');
+      }
     } catch (err) {
       setError(err.message);
     } finally {

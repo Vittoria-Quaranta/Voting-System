@@ -19,6 +19,17 @@ public class AuthManagerTests
         public Task<bool> HasVotedInElectionAsync(int voterId, int electionId) => Task.FromResult(false);
     }
 
+    // fake election accessor, returns null (no active election) by default
+    private class FakeElectionAccessor : IElectionAccessor
+    {
+        public Election? ElectionToReturn { get; set; }
+        public Task<Election?> GetActiveElectionAsync() => Task.FromResult(ElectionToReturn);
+        public Task<IEnumerable<Race>> GetRacesByElectionAsync(int electionId) =>
+            Task.FromResult<IEnumerable<Race>>(new List<Race>());
+        public Task<IEnumerable<Candidate>> GetCandidatesByRaceAsync(int raceId) =>
+            Task.FromResult<IEnumerable<Candidate>>(new List<Candidate>());
+    }
+
     // fake auth engine, returns whatever we tell it to for verify
     private class FakeAuthEngine : IAuthEngine
     {
@@ -44,7 +55,7 @@ public class AuthManagerTests
             }
         };
         var fakeEngine = new FakeAuthEngine { VerifyResult = true };
-        var manager = new AuthManager(fakeAccessor, fakeEngine);
+        var manager = new AuthManager(fakeAccessor, new FakeElectionAccessor(), fakeEngine);
 
         var response = await manager.LoginAsync(new LoginRequest { Username = "tfrazier", Password = "correct" });
 
@@ -58,7 +69,7 @@ public class AuthManagerTests
     {
         var fakeAccessor = new FakeVoterAccessor { VoterToReturn = null };
         var fakeEngine = new FakeAuthEngine { VerifyResult = true };
-        var manager = new AuthManager(fakeAccessor, fakeEngine);
+        var manager = new AuthManager(fakeAccessor, new FakeElectionAccessor(), fakeEngine);
 
         var response = await manager.LoginAsync(new LoginRequest { Username = "nobody", Password = "whatever" });
 
@@ -74,7 +85,7 @@ public class AuthManagerTests
             VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "some_hash" }
         };
         var fakeEngine = new FakeAuthEngine { VerifyResult = false };
-        var manager = new AuthManager(fakeAccessor, fakeEngine);
+        var manager = new AuthManager(fakeAccessor, new FakeElectionAccessor(), fakeEngine);
 
         var response = await manager.LoginAsync(new LoginRequest { Username = "tfrazier", Password = "wrong" });
 
@@ -89,7 +100,7 @@ public class AuthManagerTests
         {
             VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "h" }
         };
-        var manager = new AuthManager(fakeAccessor, new FakeAuthEngine { VerifyResult = true });
+        var manager = new AuthManager(fakeAccessor, new FakeElectionAccessor(), new FakeAuthEngine { VerifyResult = true });
 
         var response = await manager.LoginAsync(new LoginRequest { Username = "", Password = "password" });
 
@@ -104,7 +115,7 @@ public class AuthManagerTests
         {
             VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "h" }
         };
-        var manager = new AuthManager(fakeAccessor, new FakeAuthEngine { VerifyResult = true });
+        var manager = new AuthManager(fakeAccessor, new FakeElectionAccessor(), new FakeAuthEngine { VerifyResult = true });
 
         var response = await manager.LoginAsync(new LoginRequest { Username = "tfrazier", Password = "" });
 
@@ -122,8 +133,8 @@ public class AuthManagerTests
             VoterToReturn = new Voter { VoterId = 1, Username = "tfrazier", PasswordHash = "h" }
         };
 
-        var manager1 = new AuthManager(noUserAccessor, new FakeAuthEngine { VerifyResult = true });
-        var manager2 = new AuthManager(wrongPassAccessor, new FakeAuthEngine { VerifyResult = false });
+        var manager1 = new AuthManager(noUserAccessor, new FakeElectionAccessor(), new FakeAuthEngine { VerifyResult = true });
+        var manager2 = new AuthManager(wrongPassAccessor, new FakeElectionAccessor(), new FakeAuthEngine { VerifyResult = false });
 
         var resp1 = await manager1.LoginAsync(new LoginRequest { Username = "a", Password = "b" });
         var resp2 = await manager2.LoginAsync(new LoginRequest { Username = "a", Password = "b" });

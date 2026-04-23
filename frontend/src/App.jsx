@@ -7,7 +7,10 @@ import Review from './pages/Review';
 import Confirmation from './pages/Confirmation';
 import VoteLookup from './pages/VoteLookup';
 import ParticipationCheck from './pages/ParticipationCheck';
-import AdminResults from './pages/AdminResults';
+import Results from './pages/Results';
+import DevTools from './pages/DevTools';
+
+const isDev = import.meta.env.DEV;
 
 function App() {
   return (
@@ -24,7 +27,8 @@ function App() {
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/lookup" element={<VoteLookup />} />
             <Route path="/participation" element={<ParticipationCheck />} />
-            <Route path="/admin/results" element={<AdminResults />} />
+            <Route path="/results" element={<Results />} />
+            {isDev && <Route path="/dev" element={<DevTools />} />}
           </Routes>
         </main>
       </VotingProvider>
