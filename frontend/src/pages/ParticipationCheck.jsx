@@ -42,7 +42,7 @@ export default function ParticipationCheck() {
         <CardHeader>
           <CardTitle>Voter Username</CardTitle>
           <CardDescription>
-            Enter the voter's username. Only yes-or-no participation status will be returned.
+            Enter the voter&apos;s username. Only yes-or-no participation status will be returned.
           </CardDescription>
         </CardHeader>
         <CardContent>
