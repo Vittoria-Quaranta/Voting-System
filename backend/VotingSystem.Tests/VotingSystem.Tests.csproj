@@ -5,6 +5,9 @@
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- CA1707: test methods use Method_Scenario_Expected naming -->
+    <!-- CA1852: private fake classes don't benefit from sealing; would just add noise -->
+    <NoWarn>$(NoWarn);CA1707;CA1852</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <!-- Enable Roslyn analyzers at the latest ruleset. Warnings show up in build output. -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- Keep nullable and implicit usings consistent across projects. -->
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+</Project>
