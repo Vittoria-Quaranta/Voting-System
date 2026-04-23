@@ -99,6 +99,27 @@ cd backend
 dotnet test
 ```
 
+**Run static analysis:**
+
+Backend uses built-in Roslyn analyzers configured via `backend/Directory.Build.props` and `backend/.editorconfig`. Analyzer findings show up as warnings in the build output:
+```bash
+cd backend
+dotnet build
+```
+To auto-fix style issues:
+```bash
+cd backend
+dotnet format
+```
+
+Frontend uses ESLint (flat config at `frontend/eslint.config.js`) with React and React Hooks rules:
+```bash
+cd frontend
+npm run lint
+```
+
+Both run in CI; the frontend lint step is blocking.
+
 **Test accounts:** All share password `husker2026`
 
 | Username | Name |
