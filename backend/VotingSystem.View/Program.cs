@@ -27,6 +27,9 @@ builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IBallotManager, BallotManager>();
 builder.Services.AddScoped<IVotingSessionManager, VotingSessionManager>();
 builder.Services.AddScoped<IResultsManager, ResultsManager>();
+builder.Services.AddScoped<IVoteLookupManager, VoteLookupManager>();
+builder.Services.AddScoped<IParticipationManager, ParticipationManager>();
+builder.Services.AddScoped<IRegistrationManager, RegistrationManager>();
 
 var app = builder.Build();
 
@@ -37,6 +40,14 @@ app.MapGet("/", () => "Pacopolis Voting System API");
 app.MapPost("/api/login", async (LoginRequest request, IAuthManager authManager) =>
 {
     var response = await authManager.LoginAsync(request);
+    return Results.Ok(response);
+});
+
+// POST /api/register - takes RegisterRequest, returns RegisterResponse
+// always returns 200, success/failure in the response body (same pattern as login)
+app.MapPost("/api/register", async (RegisterRequest request, IRegistrationManager registrationManager) =>
+{
+    var response = await registrationManager.RegisterAsync(request);
     return Results.Ok(response);
 });
 
@@ -60,6 +71,25 @@ app.MapGet("/api/results", async (IResultsManager resultsManager) =>
 {
     var results = await resultsManager.GetResultsAsync();
     return results is null ? Results.NotFound("No election found.") : Results.Ok(results);
+});
+
+// GET /api/vote-lookup/{code} - voter verifies their recorded selections by confirmation code
+// 404 if the code is not found
+app.MapGet("/api/vote-lookup/{code:guid}", async (Guid code, IVoteLookupManager lookupManager) =>
+{
+    var dto = await lookupManager.GetByConfirmationCodeAsync(code);
+    return dto is null ? Results.NotFound("Confirmation code not found.") : Results.Ok(dto);
+});
+
+// GET /api/participation?username=... - third-party check of voter participation (voted yes/no only)
+// 400 if username missing; otherwise 200 with { voted: bool }
+app.MapGet("/api/participation", async (string? username, IParticipationManager participationManager) =>
+{
+    if (string.IsNullOrWhiteSpace(username))
+        return Results.BadRequest(new { message = "Missing 'username' query parameter." });
+
+    var dto = await participationManager.CheckAsync(username);
+    return Results.Ok(dto);
 });
 
 // DEV ONLY: reset votes for demo purposes

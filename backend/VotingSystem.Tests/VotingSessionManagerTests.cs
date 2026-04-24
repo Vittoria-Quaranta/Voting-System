@@ -20,6 +20,7 @@ public class VotingSessionManagerTests
         public bool HasVoted { get; set; }
         public Task<Voter?> GetVoterByUsernameAsync(string username) => Task.FromResult<Voter?>(null);
         public Task<bool> HasVotedInElectionAsync(int voterId, int electionId) => Task.FromResult(HasVoted);
+        public Task<int> CreateVoterAsync(Voter voter) => Task.FromResult(0);
     }
 
     private class FakeValidationEngine : IBallotValidationEngine
@@ -42,6 +43,8 @@ public class VotingSessionManagerTests
             Task.FromResult<IEnumerable<Vote>>(new List<Vote>());
         public Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId) =>
             Task.FromResult<IEnumerable<VoteCount>>(new List<VoteCount>());
+        public Task<VoterRecord?> GetVoterRecordByConfirmationCodeAsync(Guid confirmationCode) =>
+            Task.FromResult<VoterRecord?>(null);
     }
 
     private static BallotDto MakeBallot() => new()

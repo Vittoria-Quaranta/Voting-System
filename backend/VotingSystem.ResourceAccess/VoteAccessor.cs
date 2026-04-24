@@ -75,6 +75,17 @@ public class VoteAccessor : IVoteAccessor
         return await connection.QueryAsync<Vote>(sql, new { ConfirmationCode = confirmationCode });
     }
 
+    // resolves a confirmation code back to its VoterRecord (for ElectionId lookup)
+    public async Task<VoterRecord?> GetVoterRecordByConfirmationCodeAsync(Guid confirmationCode)
+    {
+        const string sql =
+            "SELECT VoterRecordId, VoterId, ElectionId, ConfirmationCode, SubmittedAt " +
+            "FROM VoterRecord WHERE ConfirmationCode = @ConfirmationCode";
+
+        using var connection = new SqlConnection(_connectionString);
+        return await connection.QueryFirstOrDefaultAsync<VoterRecord>(sql, new { ConfirmationCode = confirmationCode });
+    }
+
     // count votes per candidate for all races in an election
     public async Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId)
     {

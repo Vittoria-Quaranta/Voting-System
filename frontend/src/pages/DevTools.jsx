@@ -90,7 +90,7 @@ export default function DevTools() {
           <CardHeader>
             <CardTitle>Quick Login</CardTitle>
             <CardDescription>
-              One-click login with test accounts. All use password "husker2026".
+              One-click login with test accounts. All use password {'"husker2026"'}.
             </CardDescription>
           </CardHeader>
           <CardContent>
