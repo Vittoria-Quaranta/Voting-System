@@ -1,3 +1,4 @@
+using Dapper;
 using VotingSystem.DataContracts;
 using VotingSystem.Engines;
 using VotingSystem.Managers;
@@ -19,11 +20,13 @@ builder.Services.AddScoped<IVoteAccessor>(_ => new VoteAccessor(connectionString
 builder.Services.AddSingleton<IAuthEngine, AuthEngine>();
 builder.Services.AddSingleton<IBallotValidationEngine, BallotValidationEngine>();
 builder.Services.AddSingleton<IDuplicateVoteEngine, DuplicateVoteEngine>();
+builder.Services.AddSingleton<IResultsEngine, ResultsEngine>();
 
 // managers (orchestration)
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IBallotManager, BallotManager>();
 builder.Services.AddScoped<IVotingSessionManager, VotingSessionManager>();
+builder.Services.AddScoped<IResultsManager, ResultsManager>();
 
 var app = builder.Build();
 
@@ -51,5 +54,26 @@ app.MapPost("/api/submit-ballot", async (SubmitBallotRequest request, IVotingSes
     var response = await sessionManager.SubmitBallotAsync(request);
     return Results.Ok(response);
 });
+
+// GET /api/results - returns election results with vote counts and winners
+app.MapGet("/api/results", async (IResultsManager resultsManager) =>
+{
+    var results = await resultsManager.GetResultsAsync();
+    return results is null ? Results.NotFound("No election found.") : Results.Ok(results);
+});
+
+// DEV ONLY: reset votes for demo purposes
+if (app.Environment.IsDevelopment())
+{
+    app.MapPost("/api/dev/reset-votes", async (IVoteAccessor voteAccessor) =>
+    {
+        // uses the connection string already registered
+        var connStr = builder.Configuration.GetConnectionString("VotingDb")!;
+        using var conn = new Microsoft.Data.SqlClient.SqlConnection(connStr);
+        await conn.OpenAsync();
+        await conn.ExecuteAsync("DELETE FROM Vote; DELETE FROM VoterRecord;");
+        return Results.Ok(new { success = true, message = "All votes cleared." });
+    });
+}
 
 app.Run();

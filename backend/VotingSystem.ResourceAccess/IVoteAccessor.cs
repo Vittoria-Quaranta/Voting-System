@@ -17,4 +17,9 @@ public interface IVoteAccessor
     /// Look up submitted votes by confirmation code.
     /// </summary>
     Task<IEnumerable<Vote>> GetVotesByConfirmationCodeAsync(Guid confirmationCode);
+
+    /// <summary>
+    /// Get vote counts grouped by race and candidate for an election.
+    /// </summary>
+    Task<IEnumerable<VoteCount>> GetVoteCountsByElectionAsync(int electionId);
 }
