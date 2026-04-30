@@ -55,17 +55,19 @@ Total tests: 37 (was 31 in Sprint 1)
 ## Screenshots
 
 - [ ] GitHub project board
-- [ ] UI: Login page
-- [ ] UI: Ballot page with selections
-- [ ] UI: Review page
-- [ ] UI: Confirmation page
+- [x] UI: Login page
+- [x] UI: Ballot page with selections
+- [X] UI: Review page
+- [x] UI: Confirmation page
 - [ ] UI: Results page
 - [ ] Test output, all passing
 - [ ] CI workflow passing
 - [ ] Code coverage report
 
      ![image](https://github.com/user-attachments/assets/ec1d2379-a594-452e-85fa-8009b5893200)
-  ![backend](https://github.com/user-attachments/assets/8bc2cc43-fb23-43e8-9ad2-99276affa8d0)
+  ![image](https://github.com/user-attachments/assets/8bc2cc43-fb23-43e8-9ad2-99276affa8d0)
+![verifying vote](https://github.com/user-attachments/assets/e6e2ad3e-23f4-4cf0-a55e-483fa04cefcc)
+
 
 
 ## Review meeting notes
