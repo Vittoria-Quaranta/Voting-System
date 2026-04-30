@@ -72,6 +72,8 @@ Total tests: 37 (was 31 in Sprint 1)
 ![Architecture explorer](https://github.com/user-attachments/assets/96ee5004-e964-46e7-9aef-acad4ae342cc)
 ![architecture_solution explorer](https://github.com/user-attachments/assets/d45bb56e-649b-4268-8b45-8d9c9277e8eb)
 ![testing](https://github.com/user-attachments/assets/109a95c1-b5d4-45b3-a236-17658753fd57)
+![ci workflow](https://github.com/user-attachments/assets/848f9ce4-9b0c-4e87-832a-25b802627160)
+
 
 
 
