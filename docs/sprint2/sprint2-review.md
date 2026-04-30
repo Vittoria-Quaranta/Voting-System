@@ -70,6 +70,9 @@ Total tests: 37 (was 31 in Sprint 1)
 ![verifying vote](https://github.com/user-attachments/assets/e6e2ad3e-23f4-4cf0-a55e-483fa04cefcc)
 ![participation check](https://github.com/user-attachments/assets/894bf1d5-09b9-43b9-9086-a0759231f80c)
 ![Architecture explorer](https://github.com/user-attachments/assets/96ee5004-e964-46e7-9aef-acad4ae342cc)
+![architecture_solution explorer](https://github.com/user-attachments/assets/d45bb56e-649b-4268-8b45-8d9c9277e8eb)
+
+
 
 
 
