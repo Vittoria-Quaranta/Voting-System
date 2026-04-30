@@ -61,7 +61,7 @@ Total tests: 37 (was 31 in Sprint 1)
 - [X] UI: Review page
 - [x] UI: Confirmation page
 - [ ] UI: Results page
-- [ ] Test output, all passing
+- [x] Test output, all passing
 - [ ] CI workflow passing
 - [ ] Code coverage report
 
@@ -71,6 +71,8 @@ Total tests: 37 (was 31 in Sprint 1)
 ![participation check](https://github.com/user-attachments/assets/894bf1d5-09b9-43b9-9086-a0759231f80c)
 ![Architecture explorer](https://github.com/user-attachments/assets/96ee5004-e964-46e7-9aef-acad4ae342cc)
 ![architecture_solution explorer](https://github.com/user-attachments/assets/d45bb56e-649b-4268-8b45-8d9c9277e8eb)
+![testing](https://github.com/user-attachments/assets/109a95c1-b5d4-45b3-a236-17658753fd57)
+
 
 
 
