@@ -64,6 +64,9 @@ Total tests: 37 (was 31 in Sprint 1)
 - [ ] CI workflow passing
 - [ ] Code coverage report
 
+      <img width="845" height="910" alt="frontend" src="https://github.com/user-attachments/assets/ec1d2379-a594-452e-85fa-8009b5893200" />
+
+
 ## Review meeting notes
 
 **Agenda:**
