@@ -15,7 +15,7 @@
 - Merge Conflicts: We ran into Git merge conflicts when trying to combine overlapping frontend and backend branches into main.
   
 ## What we'd do different if we did it again
-- Frequent Integration: We would communicate more closely before opening large Pull Requests and pull from main more frequently to avoid e merge conflicts.
+- Frequent Integration: We would communicate more closely before opening large Pull Requests and pull from main more frequently to avoid the merge conflicts.
 - Roles: Assign more specific roles to specific people.
 
 ## Action items
