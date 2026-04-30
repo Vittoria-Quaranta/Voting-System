@@ -16,7 +16,7 @@
   
 ## What we'd do different if we did it again
 - Frequent Integration: We would communicate more closely before opening large Pull Requests and pull from main more frequently to avoid e merge conflicts.
-- 
+- Roles: Assign more specific roles to specific people.
 
 ## Action items
 
