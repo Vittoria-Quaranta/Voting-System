@@ -33,15 +33,12 @@ Finish frontend, add results/reporting, voter lookup, participation check. Full 
 - Dev-only reset endpoint
 
 ### Voter Lookup + Participation
-- TODO
+-  Built the "Verify Your Vote" page for voters to look up their recorded selections using a secure GUID confirmation code 
+-  Implemented the "Participation Check" page for third-party observers to verify if a username has voted without revealing their ballot  choices 
 
 ### Docs
 - README updated with run instructions and test accounts
 - API reference updated
-
-## What didn't get done
-
-- TODO (fill in at end of sprint)
 
 ## Architecture
 
@@ -94,4 +91,5 @@ Total tests: 37 (was 31 in Sprint 1)
 - Discuss what's left before final presentation
 
 **Notes (fill in during/after):**
-- 
+- The application uses Azure SQL Database. This was chosen to support macOS development environments, where running a local SQL Server 
+instance is not straightforward.
