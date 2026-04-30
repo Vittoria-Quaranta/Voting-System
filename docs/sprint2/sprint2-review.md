@@ -1,5 +1,4 @@
-<img width="476" height="346" alt="Architecture explorer" src="https://github.com/user-attachments/assets/8548b8c3-1cf2-4911-bfcf-63bf56e52f99" />
-<img width="476" height="346" alt="Architecture explorer" src="https://github.com/user-attachments/assets/62de0f8c-7661-43e8-bed9-b32d57a78504" />
+
 # Sprint 2 Review
 
 **Team:** Pacopolis Voting System
