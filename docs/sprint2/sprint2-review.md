@@ -1,3 +1,5 @@
+<img width="476" height="346" alt="Architecture explorer" src="https://github.com/user-attachments/assets/8548b8c3-1cf2-4911-bfcf-63bf56e52f99" />
+<img width="476" height="346" alt="Architecture explorer" src="https://github.com/user-attachments/assets/62de0f8c-7661-43e8-bed9-b32d57a78504" />
 # Sprint 2 Review
 
 **Team:** Pacopolis Voting System
@@ -68,6 +70,8 @@ Total tests: 37 (was 31 in Sprint 1)
   ![image](https://github.com/user-attachments/assets/8bc2cc43-fb23-43e8-9ad2-99276affa8d0)
 ![verifying vote](https://github.com/user-attachments/assets/e6e2ad3e-23f4-4cf0-a55e-483fa04cefcc)
 ![participation check](https://github.com/user-attachments/assets/894bf1d5-09b9-43b9-9086-a0759231f80c)
+![Architecture explorer](https://github.com/user-attachments/assets/96ee5004-e964-46e7-9aef-acad4ae342cc)
+
 
 
 
