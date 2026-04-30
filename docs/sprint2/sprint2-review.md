@@ -65,6 +65,9 @@ Total tests: 37 (was 31 in Sprint 1)
 - [ ] Code coverage report
 
      ![image](https://github.com/user-attachments/assets/ec1d2379-a594-452e-85fa-8009b5893200)
+    ![image](https://github.com/user-attachments/assets/8bc2cc43-fb23-43e8-9ad2-99276affa8d0")
+
+
 
 ## Review meeting notes
 
