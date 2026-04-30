@@ -62,7 +62,7 @@ Total tests: 37 (was 31 in Sprint 1)
 - [x] UI: Confirmation page
 - [ ] UI: Results page
 - [x] Test output, all passing
-- [ ] CI workflow passing
+- [x] CI workflow passing
 - [ ] Code coverage report
 
      ![image](https://github.com/user-attachments/assets/ec1d2379-a594-452e-85fa-8009b5893200)
