@@ -1,10 +1,10 @@
 # Voting System
 Pacopolis electronic voting system for CSCE 361.
-**Group Members:**
-* Cameron Adkins
-* Yin Po Po Aung
-* Vittoria Quaranta
-* Sowparnika Sandhya
+## Group Members
+- Cameron Adkins
+- Yin Po Po Aung
+- Vittoria Quaranta
+- Sowparnika Sandhya
 
 ## Client / Use Case Layer
 These are the user-facing interactions the system must support:
