@@ -1,5 +1,5 @@
 # Voting System
-Pacopolis electronic voting system for CSCE 361.
+Pacopolis electronic voting system for CSCE 361. Completed 05/04/2026 with no future commits planned. 
 ## Group Members
 - Cameron Adkins
 - Yin Po Po Aung
